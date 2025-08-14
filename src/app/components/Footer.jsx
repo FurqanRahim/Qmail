@@ -44,7 +44,8 @@ function Footer() {
             </div>
 
             {/* Divider */}
-            <div className="border-b border-black my-6 mx-4 md:mx-16"></div>
+            <div className="border-b border-black my-6 mx-4 md:mx-16 h-0"></div>
+
 
             {/* Bottom section */}
             <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-16 pb-6 gap-4">
