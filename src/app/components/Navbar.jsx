@@ -95,7 +95,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu (expanded) */}
-            <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
+            <div className={`${isOpen ? 'block fixed inset-0 mt-22 bg-white overflow-hidden' : 'hidden'} md:hidden`}>
                 <div className=" px-2 ml-3  pb-3 space-y-1 sm:px-3">
                     {navLinks.map((link) => (
                         <Link key={link.name} href={link.href}>
