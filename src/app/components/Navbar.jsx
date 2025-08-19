@@ -9,12 +9,11 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const navLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'Using Qmail', href: '/about' },
-        { name: 'About us', href: '/about' },
+        { name: 'Home', href: '/Homepage/' },
+        { name: 'About us', href: '/about-us/' },
         { name: 'Our blog', href: '/services' },
         { name: 'Get Qmail for free', href: '/portfolio', isButton: true },
-        { name: 'Help', href: '/contact' },
+        { name: 'Help', href: '/help' },
         { name: 'Sign in', href: '/contact' },
     ];
 
