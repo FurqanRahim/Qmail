@@ -12,6 +12,7 @@ const page = () => {
 
                 <div className='text-[16px] font-medium  p-2 flex flex-col gap-6 md:p-4'>
 
+
                     {/* Section : Name  */}
 
                     <div className='flex flex-col gap-4'>

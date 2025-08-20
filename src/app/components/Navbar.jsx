@@ -14,7 +14,7 @@ const Navbar = () => {
         { name: 'Our blog', href: '/services' },
         { name: 'Get Qmail for free', href: '/portfolio', isButton: true },
         { name: 'Help', href: '/help' },
-        { name: 'Sign in', href: '/contact' },
+        { name: 'Sign in', href: '/login' },
     ];
 
     return (
