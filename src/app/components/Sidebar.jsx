@@ -42,12 +42,10 @@ export default function Sidebar({ children }) {
                         <span>{item.name}</span>
                     </Link>
 
-                    {item.isline && (
-                        <div
-                            className={`${isMobile ? "border-white/30" : "border-white/30"
-                                } border-b my-3`}
-                        ></div>
-                    )}
+                    {item.isline ? (
+                        <div className={`${isMobile ? "border-white/30" : "border-white/30"} border-b my-3`}></div>
+                    ) : (<div></div>)}
+
                 </React.Fragment>
             ))}
         </nav>
@@ -92,11 +90,11 @@ export default function Sidebar({ children }) {
 
             {/* Page Content */}
             <main className="flex-1 p-6 pt-14 mt-12 md:mt-0">
-                <h2 className="text-4xl font-bold text-[#2F206A] pl-6">Dashboard</h2>
+                <h2 className="text-4xl font-bold text-[#2F206A] pl-6 ml-4 md:flex  md:-ml-84 md:mb-10 ">Dashboard</h2>
                 <p className="mt-4 text-gray-700">
-                    <div>
-                        <Time children={children} />
-                    </div>
+
+                    <Time children={children} />
+
                 </p>
             </main>
         </div>

@@ -8,11 +8,11 @@ import CreateMessage from "../components/CreateMessage.jsx";
 
 const page = () => {
     return (
-        <div>
-            <Sidebar children={<CreateMessage />} />
+
+        <Sidebar children={<CreateMessage />} />
 
 
-        </div>
+
     )
 }
 

@@ -60,8 +60,8 @@ export default function ViewMessage() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-            <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-6">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6 ">
+            <div className="w-full max-w-7xl  p-6 md:-mt-124 ">
                 <h2 className="text-xl font-bold text-[#2F206A] mb-4">
                     All Composed Emails
                 </h2>
@@ -110,7 +110,7 @@ export default function ViewMessage() {
 
             {/* Edit Modal */}
             {editIndex !== null && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center  bg-opacity-50">
                     <div className="bg-white p-6 rounded-xl w-full max-w-lg shadow-lg">
                         <h3 className="text-lg font-bold mb-4 text-[#2F206A]">
                             Edit Email
@@ -172,7 +172,7 @@ export default function ViewMessage() {
 
             {/* Delete Modal */}
             {deleteIndex !== null && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center  bg-opacity-50">
                     <div className="bg-white p-6 rounded-xl w-full max-w-sm shadow-lg">
                         <h3 className="text-lg font-bold mb-4 text-red-600">
                             Confirm Delete

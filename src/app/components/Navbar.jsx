@@ -12,7 +12,7 @@ const Navbar = () => {
         { name: 'Home', href: '/Homepage/' },
         { name: 'About us', href: '/about-us/' },
         { name: 'Our blog', href: '/services' },
-        { name: 'Get Qmail for free', href: '/portfolio', isButton: true },
+        { name: 'Get Qmail for free', href: '/Dashboard', isButton: true },
         { name: 'Help', href: '/help' },
         { name: 'Sign in', href: '/login' },
     ];
