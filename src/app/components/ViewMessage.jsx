@@ -60,13 +60,14 @@ export default function ViewMessage() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6 ">
-            <div className="w-full max-w-7xl  p-6 md:-mt-124 ">
+        <div className="flex justify-center  min-h-screen  p-4">
+            <div className="w-full max-w-7xl p-4">
                 <h2 className="text-xl font-bold text-[#2F206A] mb-4">
                     All Composed Emails
                 </h2>
 
-                <div className="overflow-x-auto">
+                {/* Desktop / Laptop Table */}
+                <div className="hidden md:block overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="bg-[#2F206A] text-white text-left">
@@ -106,11 +107,49 @@ export default function ViewMessage() {
                         </tbody>
                     </table>
                 </div>
+
+                {/* Mobile Card View */}
+                <div className="space-y-4 md:hidden">
+                    {emails.map((email, index) => (
+                        <div
+                            key={index}
+                            className="bg-white p-4 rounded-lg shadow-md border"
+                        >
+                            <p className="text-sm">
+                                <span className="font-semibold">To:</span> {email.to}
+                            </p>
+                            <p className="text-sm">
+                                <span className="font-semibold">Subject:</span> {email.subject}
+                            </p>
+                            <p className="text-sm">
+                                <span className="font-semibold">Message:</span> {email.message}
+                            </p>
+                            <p className="text-sm">
+                                <span className="font-semibold">Date:</span>{" "}
+                                {email.futureDate || "Now"}
+                            </p>
+                            <div className="flex gap-2 mt-3">
+                                <button
+                                    onClick={() => handleEdit(index)}
+                                    className="px-3 py-1 bg-blue-500 text-white rounded-lg text-xs hover:bg-blue-600"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => setDeleteIndex(index)}
+                                    className="px-3 py-1 bg-red-500 text-white rounded-lg text-xs hover:bg-red-600"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Edit Modal */}
             {editIndex !== null && (
-                <div className="fixed inset-0 flex items-center justify-center  bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 p-4">
                     <div className="bg-white p-6 rounded-xl w-full max-w-lg shadow-lg">
                         <h3 className="text-lg font-bold mb-4 text-[#2F206A]">
                             Edit Email
@@ -172,7 +211,7 @@ export default function ViewMessage() {
 
             {/* Delete Modal */}
             {deleteIndex !== null && (
-                <div className="fixed inset-0 flex items-center justify-center  bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 p-4">
                     <div className="bg-white p-6 rounded-xl w-full max-w-sm shadow-lg">
                         <h3 className="text-lg font-bold mb-4 text-red-600">
                             Confirm Delete

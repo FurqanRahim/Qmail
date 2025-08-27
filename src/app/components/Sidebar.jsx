@@ -90,7 +90,7 @@ export default function Sidebar({ children }) {
 
             {/* Page Content */}
             <main className="flex-1 p-6 pt-14 mt-12 md:mt-0">
-                <h2 className="text-4xl font-bold text-[#2F206A] pl-6 ml-4 md:flex  md:-ml-84 md:mb-10 ">Dashboard</h2>
+                <h2 className="text-4xl font-bold text-[#2F206A] pl-6 ml-4 md:flex   md:mb-10 ">Dashboard</h2>
                 <p className="mt-4 text-gray-700">
 
                     <Time children={children} />

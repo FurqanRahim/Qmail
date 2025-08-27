@@ -51,8 +51,8 @@ export default function Time({ children }) {
                 <span className="block text-2xl font-bold text-[#2F206A] ml-4  ">
                     {greeting}
                 </span>
-                <span className="block text-lg text-gray-700 mt-2 ml-4 md:-ml-30">{dayName}</span>
-                <span className="block text-lg text-gray-500 ml-4 md:-ml-20">{timeString}</span>
+                <span className="block text-lg text-gray-700 mt-2 ml-4 ">{dayName}</span>
+                <span className="block text-lg text-gray-500 ml-4 ">{timeString}</span>
             </div>
 
             {/* Children will be rendered here */}
