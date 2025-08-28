@@ -15,8 +15,20 @@ datasource db {
 }
 
 model User {
-  Id       String @id @default(uuid())
+  Id       String    @id @default(uuid())
   Username String
-  Email    String @unique
+  Email    String    @unique
   password String
+  Message  Message[]
+}
+
+model Message {
+  id           String   @id @default(uuid())
+  To           String
+  Subject      String
+  Writemessage String
+  FutureDate   DateTime @default(now())
+  Status       String   @default("Pending")
+  userID       String
+  user         User     @relation(fields: [userID], references: [Id])
 }
