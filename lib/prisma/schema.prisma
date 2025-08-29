@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/prisma"
 }
 
 datasource db {
@@ -30,5 +29,5 @@ model Message {
   FutureDate   DateTime @default(now())
   Status       String   @default("Pending")
   userID       String
-  user         User     @relation(fields: [userID], references: [Id])
+  user         User     @relation(fields: [userID], references: [Id], onDelete: Cascade)
 }
