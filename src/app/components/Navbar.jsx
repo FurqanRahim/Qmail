@@ -9,9 +9,8 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const navLinks = [
-        { name: 'Home', href: '/Homepage/' },
+        { name: 'Home', href: '/' },
         { name: 'About us', href: '/about-us/' },
-        { name: 'Our blog', href: '/services' },
         { name: 'Get Qmail for free', href: '/Dashboard', isButton: true },
         { name: 'Help', href: '/help' },
         { name: 'Sign in', href: '/login' },

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-
+import Link from "next/link";
 export default function HeroSection() {
     return (
         <div className="flex flex-col items-center px-4 py-8 mt-10 md:flex-row md:gap-2 md:justify-around md:items-center md:mt-12 md:px-8 lg:px-16">
@@ -27,9 +27,14 @@ export default function HeroSection() {
 
 
                 <div className="flex justify-center  md:justify-start">
-                    <button className="text-white bg-[rgb(48,153,26)] mt-4 -ml-20 p-4 rounded-md font-bold text-lg hover:bg-[#3CBF20] transition-colors duration-300 md:w-auto md:text-xl md:ml-34">
-                        Get Qmail for free
-                    </button>
+
+
+                    <Link href="/Dashboard">
+                        <button className="text-white bg-[rgb(48,153,26)] mt-4 -ml-20 p-4 rounded-md font-bold text-lg hover:bg-[#3CBF20] transition-colors duration-300 md:w-auto md:text-xl md:ml-34">
+                            Get Qmail for free
+                        </button>
+                    </Link>
+
                 </div>
             </div>
 

@@ -1,23 +1,50 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { LogOut } from "lucide-react";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-export default function LogoutButton() {
-    const handleLogout = () => {
-        // Here you can add your logout logic
-        // e.g., clear localStorage, cookies, redirect to login page
-        console.log("User logged out!");
-        alert("You have been logged out!");
+const LogoutButton = () => {
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        try {
+            setLoading(true);
+            const res = await axios.get("/api/Logout");
+
+            if (res.status === 200) {
+                toast.success("Logged out successfully ✅");
+                setTimeout(() => {
+                    router.push("/login"); // redirect to login page
+                }, 1500);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong!");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white font-semibold rounded-xl shadow hover:bg-red-600 transition-all"
-        >
-            <LogOut size={18} />
-            Logout
-        </button>
+        <>
+            <Toaster position="top-right" reverseOrder={false} />
+            <button
+                onClick={handleLogout}
+                disabled={loading}
+                className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl 
+                   bg-red-500 text-white font-semibold shadow 
+                   hover:bg-red-600 transition-all 
+                   w-full sm:w-auto disabled:opacity-50"
+            >
+                <LogOut size={18} />
+                {loading ? "Logging out..." : "Logout"}
+            </button>
+        </>
     );
-}
+};
+
+export default LogoutButton;

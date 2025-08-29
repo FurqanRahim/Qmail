@@ -1,17 +1,13 @@
-import prisma from "../../../../../lib/prisma.js";
-import { cookies } from "next/headers.js";
-import { NextResponse } from "next/server.js";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
-
-export async function GET(request) {
+export async function GET() {
     try {
-
         const token = cookies().get("token")?.value;
-
 
         console.log("Token before logout:", token);
 
-
+        // Expire the token cookie
         cookies().set("token", "", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -20,10 +16,15 @@ export async function GET(request) {
             path: "/",
         });
 
-        return NextResponse.json({ message: "Logged out successfully" }, { status: 200 });
-
+        return NextResponse.json(
+            { message: "Logged out successfully" },
+            { status: 200 }
+        );
     } catch (error) {
-        console.error(error)
-        return NextResponse.json({ Message: "Internal Server Error" }, { status: 500 })
+        console.error(error);
+        return NextResponse.json(
+            { message: "Internal Server Error" },
+            { status: 500 }
+        );
     }
 }

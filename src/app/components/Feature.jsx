@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react'
+import Link from 'next/link';
 import Image from "next/image"
 
 const Feature = () => {
@@ -94,8 +95,9 @@ const Feature = () => {
                     <div className='text-xl font-medium md:text-[24px]'>Your home feed - thoughts, ideas, tasks,<div>personal and shared</div></div>
                     <div className='text-xl font-bold md:text-[24px]'>One place to reflect, think and do your <div>best work</div></div>
                     <div className='text-2xl text-[#2F206A] font-black md:text-[32px]'>insite - <span className='text-[#ED2F74]'>the app for thinking</span></div>
-                    <div className='text-xl bg-[rgb(48,153,26)] text-white rounded-md p-2 w-[200px] hover:bg-[bg-[#3CBF20]] '>Get insite for free</div>
-
+                    <Link href="/Dashboard">
+                        <div className='text-xl bg-[rgb(48,153,26)] text-white rounded-md p-2 w-[200px] hover:bg-[bg-[#3CBF20]] '>Get insite for free</div>
+                    </Link>
                 </div>
                 <div className=' '>
                     <Image src='/Capture 3.png' alt='feature' width={380} height={0} className='object-contain rounded-md shadow-md mt-6 bg-white ml-4 md:w-[800px] md:h-[800px]' />

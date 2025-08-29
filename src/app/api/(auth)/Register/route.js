@@ -23,7 +23,7 @@ export async function POST(request) {
         console.log("Hashpassword ====>", hashpassword)
 
         const Newuser = await prisma.user.create({
-            data: { Username, Email, password: hashpassword }
+            data: { Username, Email, emailpass: userData.password, password: hashpassword }
         })
 
         return NextResponse.json({ "Message": `${Username} Account has Created Successfully` }, { status: 200 })

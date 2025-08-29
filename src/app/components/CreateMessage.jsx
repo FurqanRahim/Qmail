@@ -1,24 +1,68 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CreateMessage() {
+    const router = useRouter();
     const [to, setTo] = useState("");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
     const [futureDate, setFutureDate] = useState("");
 
-    const handleSubmit = (e) => {
+    // ✅ Redirect if no token
+    useEffect(() => {
+        const token = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("token="));
+
+        if (!token) {
+            router.push("/login");
+        }
+    }, [router]);
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        return new Date(dateString).toLocaleString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (futureDate && new Date(futureDate) < new Date()) {
-            alert("Please select a future date and time.");
+            toast.error("Please select a future date and time.");
             return;
         }
 
-        console.log("Form Submitted:", { to, subject, message, futureDate });
-        alert(`Message scheduled for ${futureDate || "Now"}`);
-        handleReset();
+        try {
+            const res = await axios.post("/api/Create", {
+                To: to,
+                Subject: subject,
+                Writemessage: message,
+                FutureDate: futureDate || null,
+            });
+
+            if (res.status === 201) {
+                const formattedDate = futureDate
+                    ? formatDate(futureDate)
+                    : "Now";
+
+                toast.success(`Message scheduled for ${formattedDate}`);
+                handleReset();
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error("Failed to schedule message. Try again!");
+        }
     };
 
     const handleReset = () => {
@@ -29,21 +73,24 @@ export default function CreateMessage() {
     };
 
     return (
-        <div className="flex justify-center min-h-screen   md:-ml-10 lg:px-10 py-6 ">
-            {/* Compose Box */}
+        <div className="flex justify-center min-h-screen md:-ml-10 lg:px-10 py-6">
+            <Toaster position="top-right" reverseOrder={false} />
+
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-lg  p-5 sm:p-7 space-y-5"
+                className="w-full max-w-lg p-5 sm:p-7 space-y-5"
             >
-                {/* Header */}
-                <h2 className="text-xl sm:text-4xl md:text-3xl font-bold text-[#2F206A]  mb-4 ">
+                <h2 className="text-xl sm:text-4xl md:text-3xl font-bold text-[#2F206A] mb-4">
                     Compose Email
                 </h2>
 
-                {/* To */}
                 <div className="flex flex-col gap-6">
-                    <div >
-                        <label htmlFor="to" className="block text-sm font-medium text-gray-600 pl-2 pb-2">
+                    {/* To */}
+                    <div>
+                        <label
+                            htmlFor="to"
+                            className="block text-sm font-medium text-gray-600 pl-2 pb-2"
+                        >
                             To
                         </label>
                         <input
@@ -59,7 +106,10 @@ export default function CreateMessage() {
 
                     {/* Subject */}
                     <div>
-                        <label htmlFor="subject" className="block text-sm font-medium text-gray-600 pl-1 pb-2">
+                        <label
+                            htmlFor="subject"
+                            className="block text-sm font-medium text-gray-600 pl-1 pb-2"
+                        >
                             Subject
                         </label>
                         <input
@@ -75,7 +125,10 @@ export default function CreateMessage() {
 
                     {/* Message */}
                     <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-600 pl-1 pb-2">
+                        <label
+                            htmlFor="message"
+                            className="block text-sm font-medium text-gray-600 pl-1 pb-2"
+                        >
                             Message
                         </label>
                         <textarea
@@ -83,7 +136,7 @@ export default function CreateMessage() {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Write your message..."
-                            rows="5"
+                            rows={5}
                             required
                             className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-[#2F206A] text-sm sm:text-base"
                         ></textarea>
@@ -91,7 +144,10 @@ export default function CreateMessage() {
 
                     {/* Future Date */}
                     <div>
-                        <label htmlFor="futureDate" className="block text-sm font-medium text-gray-600 pl-1 pb-1">
+                        <label
+                            htmlFor="futureDate"
+                            className="block text-sm font-medium text-gray-600 pl-1 pb-1"
+                        >
                             Future Date
                         </label>
                         <input
@@ -101,9 +157,14 @@ export default function CreateMessage() {
                             onChange={(e) => setFutureDate(e.target.value)}
                             className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-[#2F206A] text-sm sm:text-base"
                         />
-                        <p className="text-xs text-gray-500 mt-1 pl-1">
-                            Your message will be scheduled at the selected date.
-                        </p>
+                        {futureDate && (
+                            <p className="text-xs text-gray-500 mt-1 pl-1">
+                                Your message will be sent on{" "}
+                                <span className="font-medium text-[#2F206A]">
+                                    {formatDate(futureDate)}
+                                </span>
+                            </p>
+                        )}
                     </div>
 
                     {/* Buttons */}

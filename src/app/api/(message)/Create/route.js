@@ -2,62 +2,45 @@ import prisma from "../../../../../lib/prisma.js";
 import { NextResponse } from "next/server.js";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import messageQueue from "../../../../../Worker/messageWorker.js";
 
-export async function POST(req) {
+export async function POST(request) {
     try {
-        const body = await req.json();
-        const { To, Subject, Writemessage, FutureDate } = body;
+        // 1. Get JWT from cookies
+        const token = cookies().get("token")?.value;
+        if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-        // --- FIXED COOKIES ---
-        const cookieStore = await cookies();
-        const token = cookieStore.get("token")?.value;
-
-        if (!token) {
-            return NextResponse.json(
-                { Message: "Unauthorized - No token found" },
-                { status: 401 }
-            );
-        }
-
-        // --- VERIFY TOKEN ---
         let userId;
         try {
-            userId = jwt.verify(token, process.env.JWT_SECRET).userId;
+            ({ userId } = jwt.verify(token, process.env.JWT_SECRET));
         } catch {
-            return NextResponse.json(
-                { Message: "Invalid or expired token" },
-                { status: 403 }
-            );
+            return NextResponse.json({ message: "Invalid or expired token" }, { status: 401 });
         }
 
-        // --- FIX DATE PARSING ---
-        let parsedDate = undefined;
-        if (FutureDate) {
-            const [day, month, year] = FutureDate.split("-");
-            parsedDate = new Date(`${year}-${month}-${day}`);
-            if (isNaN(parsedDate)) parsedDate = undefined;
-        }
+        // 2. Parse body
+        const { To, Subject, Writemessage, FutureDate } = await request.json();
 
-        // --- SAVE MESSAGE ---
+        // 3. Save message in DB
         const newMessage = await prisma.message.create({
             data: {
                 To,
                 Subject,
                 Writemessage,
+                FutureDate: new Date(FutureDate),
                 userID: userId,
-                FutureDate: parsedDate, // optional, defaults to now() if undefined
             },
         });
 
+        // 4. Add job to queue with safe delay
+        const delay = Math.max(new Date(FutureDate).getTime() - Date.now(), 0);
+        await messageQueue.add("send-email", { messageId: newMessage.id }, { delay });
+
         return NextResponse.json(
-            { Message: "Message created successfully", data: newMessage },
+            { message: "Message scheduled", data: newMessage },
             { status: 201 }
         );
     } catch (error) {
-        console.error(error);
-        return NextResponse.json(
-            { Message: "Internal Server Error" },
-            { status: 500 }
-        );
+        console.error("Message scheduling error:", error);
+        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
 }

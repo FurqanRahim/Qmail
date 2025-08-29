@@ -14,11 +14,12 @@ datasource db {
 }
 
 model User {
-  Id       String    @id @default(uuid())
-  Username String
-  Email    String    @unique
-  password String
-  Message  Message[]
+  Id        String    @id @default(uuid())
+  Username  String
+  Email     String    @unique
+  password  String
+  emailpass String?
+  Message   Message[]
 }
 
 model Message {

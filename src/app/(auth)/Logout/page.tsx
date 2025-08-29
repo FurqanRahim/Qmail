@@ -2,9 +2,9 @@
 
 
 import React from 'react'
-import Time from "../components/Time.jsx";
-import Sidebar from "../components/Sidebar.jsx"
-import Logout from "../components/Logout.jsx";
+import Logout from "../../components/Logout.jsx";
+import Time from "../../components/Time.jsx";
+import Sidebar from "../../components/Sidebar.jsx";
 
 const page = () => {
     return (

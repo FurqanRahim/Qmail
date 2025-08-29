@@ -1,31 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function ViewMessage() {
-    const [emails, setEmails] = useState([
-        {
-            to: "john@example.com",
-            subject: "Meeting Reminder",
-            message: "Don't forget about our meeting tomorrow at 10 AM.",
-            futureDate: "2025-09-01 10:00",
-        },
-        {
-            to: "sara@example.com",
-            subject: "Project Update",
-            message: "The project is on track, expecting completion next week.",
-            futureDate: "",
-        },
-        {
-            to: "alex@example.com",
-            subject: "Invitation",
-            message: "You are invited to the annual company dinner.",
-            futureDate: "2025-09-05 20:00",
-        },
-    ]);
-
+    const [emails, setEmails] = useState([]);
     const [editIndex, setEditIndex] = useState(null);
     const [deleteIndex, setDeleteIndex] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const [formData, setFormData] = useState({
         to: "",
@@ -34,13 +16,29 @@ export default function ViewMessage() {
         futureDate: "",
     });
 
+    // ✅ Fetch emails from API on mount
+    useEffect(() => {
+        const fetchEmails = async () => {
+            try {
+                const res = await axios.get("/api/messages"); // your API route
+                setEmails(res.data.messages || []);
+            } catch (error) {
+                console.error("Failed to fetch messages", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEmails();
+    }, []);
+
     // Open edit modal
     const handleEdit = (index) => {
         setEditIndex(index);
         setFormData(emails[index]);
     };
 
-    // Save edited email
+    // Save edited email (local only, extend later to API PUT request)
     const saveEdit = () => {
         const updatedEmails = [...emails];
         if (editIndex !== null) {
@@ -50,7 +48,7 @@ export default function ViewMessage() {
         }
     };
 
-    // Delete email
+    // Delete email (local only, extend later to API DELETE request)
     const confirmDelete = () => {
         if (deleteIndex !== null) {
             const updatedEmails = emails.filter((_, i) => i !== deleteIndex);
@@ -59,36 +57,92 @@ export default function ViewMessage() {
         }
     };
 
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <p className="text-gray-600">Loading messages...</p>
+            </div>
+        );
+    }
+
     return (
-        <div className="flex justify-center  min-h-screen  p-4">
+        <div className="flex justify-center min-h-screen p-4">
             <div className="w-full max-w-7xl p-4">
                 <h2 className="text-xl font-bold text-[#2F206A] mb-4">
                     All Composed Emails
                 </h2>
 
-                {/* Desktop / Laptop Table */}
-                <div className="hidden md:block overflow-x-auto">
-                    <table className="w-full border-collapse">
-                        <thead>
-                            <tr className="bg-[#2F206A] text-white text-left">
-                                <th className="p-3">To</th>
-                                <th className="p-3">Subject</th>
-                                <th className="p-3">Message</th>
-                                <th className="p-3">Scheduled Date</th>
-                                <th className="p-3">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                {emails.length === 0 ? (
+                    <p className="text-gray-500">No messages found.</p>
+                ) : (
+                    <>
+                        {/* Desktop / Laptop Table */}
+                        <div className="hidden md:block overflow-x-auto">
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr className="bg-[#2F206A] text-white text-left">
+                                        <th className="p-3">To</th>
+                                        <th className="p-3">Subject</th>
+                                        <th className="p-3">Message</th>
+                                        <th className="p-3">Scheduled Date</th>
+                                        <th className="p-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {emails.map((email, index) => (
+                                        <tr
+                                            key={email.id || index}
+                                            className="border-b hover:bg-gray-50 transition text-sm"
+                                        >
+                                            <td className="p-3">{email.to}</td>
+                                            <td className="p-3">{email.subject}</td>
+                                            <td className="p-3">{email.message}</td>
+                                            <td className="p-3">
+                                                {email.futureDate || "Now"}
+                                            </td>
+                                            <td className="p-3 flex gap-2">
+                                                <button
+                                                    onClick={() => handleEdit(index)}
+                                                    className="px-3 py-1 bg-blue-500 text-white rounded-lg text-xs hover:bg-blue-600"
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => setDeleteIndex(index)}
+                                                    className="px-3 py-1 bg-red-500 text-white rounded-lg text-xs hover:bg-red-600"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Mobile Card View */}
+                        <div className="space-y-4 md:hidden">
                             {emails.map((email, index) => (
-                                <tr
-                                    key={index}
-                                    className="border-b hover:bg-gray-50 transition text-sm"
+                                <div
+                                    key={email.id || index}
+                                    className="bg-white p-4 rounded-lg shadow-md border"
                                 >
-                                    <td className="p-3">{email.to}</td>
-                                    <td className="p-3">{email.subject}</td>
-                                    <td className="p-3">{email.message}</td>
-                                    <td className="p-3">{email.futureDate || "Now"}</td>
-                                    <td className="p-3 flex gap-2">
+                                    <p className="text-sm">
+                                        <span className="font-semibold">To:</span> {email.to}
+                                    </p>
+                                    <p className="text-sm">
+                                        <span className="font-semibold">Subject:</span>{" "}
+                                        {email.subject}
+                                    </p>
+                                    <p className="text-sm">
+                                        <span className="font-semibold">Message:</span>{" "}
+                                        {email.message}
+                                    </p>
+                                    <p className="text-sm">
+                                        <span className="font-semibold">Date:</span>{" "}
+                                        {email.futureDate || "Now"}
+                                    </p>
+                                    <div className="flex gap-2 mt-3">
                                         <button
                                             onClick={() => handleEdit(index)}
                                             className="px-3 py-1 bg-blue-500 text-white rounded-lg text-xs hover:bg-blue-600"
@@ -101,55 +155,17 @@ export default function ViewMessage() {
                                         >
                                             Delete
                                         </button>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </div>
                             ))}
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Mobile Card View */}
-                <div className="space-y-4 md:hidden">
-                    {emails.map((email, index) => (
-                        <div
-                            key={index}
-                            className="bg-white p-4 rounded-lg shadow-md border"
-                        >
-                            <p className="text-sm">
-                                <span className="font-semibold">To:</span> {email.to}
-                            </p>
-                            <p className="text-sm">
-                                <span className="font-semibold">Subject:</span> {email.subject}
-                            </p>
-                            <p className="text-sm">
-                                <span className="font-semibold">Message:</span> {email.message}
-                            </p>
-                            <p className="text-sm">
-                                <span className="font-semibold">Date:</span>{" "}
-                                {email.futureDate || "Now"}
-                            </p>
-                            <div className="flex gap-2 mt-3">
-                                <button
-                                    onClick={() => handleEdit(index)}
-                                    className="px-3 py-1 bg-blue-500 text-white rounded-lg text-xs hover:bg-blue-600"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    onClick={() => setDeleteIndex(index)}
-                                    className="px-3 py-1 bg-red-500 text-white rounded-lg text-xs hover:bg-red-600"
-                                >
-                                    Delete
-                                </button>
-                            </div>
                         </div>
-                    ))}
-                </div>
+                    </>
+                )}
             </div>
 
             {/* Edit Modal */}
             {editIndex !== null && (
-                <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 p-4">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 p-4">
                     <div className="bg-white p-6 rounded-xl w-full max-w-lg shadow-lg">
                         <h3 className="text-lg font-bold mb-4 text-[#2F206A]">
                             Edit Email
@@ -211,7 +227,7 @@ export default function ViewMessage() {
 
             {/* Delete Modal */}
             {deleteIndex !== null && (
-                <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 p-4">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 p-4">
                     <div className="bg-white p-6 rounded-xl w-full max-w-sm shadow-lg">
                         <h3 className="text-lg font-bold mb-4 text-red-600">
                             Confirm Delete
