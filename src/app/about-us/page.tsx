@@ -8,110 +8,86 @@ const Page = () => {
 
             {/* Section 1 */}
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-[#2F206A] text-center">
-                About us
+                About Us
             </h1>
 
             <h2 className="text-2xl md:text-4xl font-black text-[#2F206A] text-center">
-                We are digital workers like you
+                The Future of Email is Scheduling
             </h2>
 
             <p className="text-base sm:text-lg md:text-xl font-bold">
-                Are you a student, a freelancer, or an entrepreneur? Are you running a business or working for one? Are you working remote, or in an office?
+                Are you a student, freelancer, entrepreneur, or business professional? Do you work remote or from an office?
             </p>
 
             <p className="text-base sm:text-lg md:text-xl">
-                Whatever the answer, right now, you have tabs open – documents in progress, sites you’ve visited. You have your inbox, maybe you keep notes on paper, or in an app. You have a to-do list, a calendar.
+                No matter who you are, your inbox is full and your schedule is busy. Sometimes you write an important message but want it to be sent later — tomorrow, next week, or even months ahead. That’s where our system comes in.
             </p>
 
             <p className="text-base sm:text-lg md:text-xl font-bold">
-                If so, you’re the same as us – how do you stay on top of everything?
+                We call it the Scheduling Email System
             </p>
 
             <p className="text-base sm:text-lg md:text-xl">
-                We ran a thought experiment – what if you could just take your pick of what mattered to you, across all those touchpoints? One click to capture the place and the thought.
-            </p>
-
-            <p className="text-base sm:text-lg md:text-xl font-bold">
-                That’s where we started
+                With just a few clicks, you can compose your message, pick a future date and time, and let us handle the delivery automatically. It’s that simple.
             </p>
 
             {/* Section 2 */}
             <h2 className="text-2xl md:text-3xl font-black text-[#2F206A] text-center">
-                Everybody wants your attention
+                Why Scheduling Matters
             </h2>
 
             <p className="text-base sm:text-lg md:text-xl">
-                We have a problem to solve – every app we use and resource we visit lives in a domain, and each competes for our attention. To get control over them, our app needed to live inside the browser itself. A full-size application squeezed into an extension.
+                Emails are often forgotten, buried, or sent at the wrong time. Whether it’s wishing someone a happy birthday, reminding a client about a meeting, or delivering a campaign at the perfect moment — timing makes the difference.
             </p>
 
             <p className="text-base sm:text-lg md:text-xl font-bold">
-                So we built it and things went a little crazy
+                That’s why we built it
             </p>
 
             <p className="text-base sm:text-lg md:text-xl">
-                Some were using it to leave hilarious notes on random web pages, some to share YouTube videos. Some to highlight a social post, or a new toilet seat on Amazon. How do we know? Because we were sharing them with each other.
-            </p>
-
-            <p className="text-base sm:text-lg md:text-xl">
-                And the questions started: Was Insite a social tool? A messaging platform? The ultimate to-do list? A replacement for bookmarks? The list went on – but one thing we all agreed on: it was empowering.
+                Instead of worrying about hitting "send" at the right time, you set it once and relax. Our system ensures your message arrives exactly when you want it to.
             </p>
 
             {/* Section 3 */}
             <h2 className="text-2xl md:text-4xl font-black text-[#2F206A] text-center">
-                We're here to put you in control
+                Putting You in Control
             </h2>
 
             <p className="text-base sm:text-lg md:text-xl">
-                If the idea was to put the user in the driving seat, what did that say about how our app should be designed? Everything was on the table: what should Insite do – and (more importantly) what should it not do? We researched the competition and the truth is they all do what they do very well.
-            </p>
-
-            <p className="text-base sm:text-lg md:text-xl">
-                We had email, we had a project management system and messaging tools. And we were using Insite for everything in between as we tried to figure out what it was.
+                The Scheduling Email System is designed to give you full control over your communication. Write now, send later — without needing to be online or available.
             </p>
 
             <p className="text-base sm:text-lg md:text-xl font-bold">
-                And the shape of Insite began to emerge on its own
+                Because timing is everything
             </p>
 
             <p className="text-base sm:text-lg md:text-xl">
-                Insite seemed to thrive in the space other applications left between them. It wasn’t trying to rival them – it was simply joining the dots between them.
-            </p>
-
-            <p className="text-base sm:text-lg md:text-xl">
-                Installed in the browser, Insite sits above all the noise and chaos. We didn’t want to add to that. If anything, we wanted to help people make sense of it all. Maybe give them the space to pull their thoughts together, think and reflect. And then act when they are ready.
-            </p>
-
-            <p className="text-base sm:text-lg md:text-xl font-bold">
-                The answer had been staring at us all along
+                Whether for personal messages, business deals, or reminders, our platform ensures your voice is heard at the perfect moment.
             </p>
 
             {/* Section 4 */}
             <h2 className="text-2xl md:text-3xl font-black text-[#2F206A] text-center">
-                Next steps in this journey
+                Next Steps in Our Journey
             </h2>
 
             <p className="text-base sm:text-lg md:text-xl">
-                Marketing people always ask if your product is a vitamin or a painkiller – does it have a feel-good factor or does it address a pain-point? We see Insite as more of a personal superpower, something you don't know you need until you try it. If messaging platforms are like handing everyone a whistle, and a project management system like trying to conduct an orchestra, maybe Insite turns you into a musician, free to play what you choose.
+                We believe communication should work for you, not against you. That’s why our mission is simple: give people the ability to schedule, automate, and control their email in the easiest way possible.
             </p>
 
             <p className="text-base sm:text-lg md:text-xl font-bold">
-                At heart, Insite is simple and also countercultural
+                At heart, it’s simple but powerful
             </p>
 
             <p className="text-base sm:text-lg md:text-xl">
-                Maybe the world, drowning in notifications, toolsets and AI hype, needs a product that leverages our minds – rather than trying to overwhelm and dominate us.
+                You focus on writing — we take care of the rest. The Scheduling Email System helps you stay productive, organized, and connected without stress.
             </p>
 
             <p className="text-base sm:text-lg md:text-xl">
-                We know we have a lot of work ahead – continuing to evolve Insite in a way that focuses on you, not extended feature lists. The harder part is figuring out how we get noticed in this noisy world. And we are excited by that.
-            </p>
-
-            <p className="text-base sm:text-lg md:text-xl">
-                We built this product for ourselves and we are building this product for you – all of us digital workers, sitting in front of our screens, with all those tabs open, trying to do our best.
+                We’re just getting started, and we’re excited to grow with you. Our goal is to make scheduled communication a natural part of your workflow.
             </p>
 
             <h2 className="text-2xl md:text-4xl font-black text-[#2F206A] text-center">
-                We hope you will join us
+                Join Us and Experience the Future of Email
             </h2>
         </div>
     )
