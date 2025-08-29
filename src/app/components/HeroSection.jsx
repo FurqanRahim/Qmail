@@ -5,18 +5,18 @@ import Link from "next/link";
 
 export default function HeroSection() {
     return (
-        <div className="flex flex-col items-center px-4 py-8 mt-10 md:flex-row md:gap-2 md:justify-around md:items-center md:mt-12 md:px-8 lg:px-16">
+        <div className="flex flex-col items-center px-4 py-8  md:flex-row md:gap-2 md:justify-around md:items-center md:mt-12 md:px-8 lg:px-16">
             {/* Left Content */}
             <div className="flex flex-col gap-8 -ml-22 md:-mt-40 md:gap-10 max-w-2xl md:max-w-none">
                 <div className="text-center md:text-left">
                     <div className="text-4xl font-black text-[#2F206A] sm:text-5xl  md:text-6xl md:ml-34 lg:text-7xl">
                         Send it later,
-                        <span className="block text-[#ED2F74] mt-2 -ml-36 md:mt-0 md:ml-1">not now.</span>
+                        <span className="block text-[#ED2F74] mt-2 -ml-35 md:mt-0 md:ml-1">not now.</span>
                         <div className="text-black text-2xl font-normal ml-12 pl-2 mt-4 md:-ml-1 md:text-3xl">
                             In a world full of busy inboxes,
                         </div>
-                        <div className="text-black text-2xl font-normal ml-12 md:-ml-1 md:text-3xl md:pl-1">
-                            our Scheduling Email System lets you
+                        <div className="text-black text-2xl font-normal ml-12 pl-6 md:-ml-1 md:text-3xl md:pl-1">
+                            our Scheduling Email System lets
                         </div>
                         <div className="text-black text-2xl font-normal ml-12 pl-2 md:-ml-1 md:text-3xl">
                             write now and deliver later.
